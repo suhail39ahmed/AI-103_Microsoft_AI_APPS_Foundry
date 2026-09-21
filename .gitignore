@@ -4,3 +4,6 @@ __pycache__/
 *.pyc
 .idea/
 .vscode/
+data/exams/ai-103/
+tools/patch_ai103.py
+

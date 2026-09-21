@@ -1,8 +1,8 @@
-# Cert Exam Prep
+# AI-103 Microsoft Foundry study
 
-Generic local practice-exam player. Add any certification as a JSON bank, then take full exams, timed sets, or random drills with instant correct/wrong feedback.
+A small study site for the Azure AI Apps and Agents Developer Associate exam: lessons you do in Microsoft Foundry, a four-week plan, and a practice set you are meant to finish.
 
-## Run
+## Run locally
 
 ```powershell
 cd C:\Users\SuhailInayathulla\Documents\cert-exam-prep
@@ -11,18 +11,11 @@ python -m http.server 8787
 
 Open http://localhost:8787
 
-## Included exams
+- **Dashboard** — lesson cards
+- **Guides** — what to click, in order, with a map of the screen (not a screenshot; the portal layout changes)
+- **Roadmap** — four weeks
+- **Practice** — 36 questions. Complete them. Instant correct / incorrect.
 
-| Exam | What it is |
-| --- | --- |
-| **AI-103** | Azure AI Apps and Agents Developer Associate — full bank plus a senior / Contoso case-study set |
-| **AI-103 Extra drills** | Additional original practice on Foundry, agents, RAG, safety, and Speech |
+Official product docs: https://learn.microsoft.com/azure/ai-foundry/
 
-Keep this repository **private** if you include third-party practice dumps.
-
-## Add another exam
-
-1. Create `data/exams/<slug>/exam.json` and `questions.json`
-2. Register the slug in `data/catalog.json`
-
-See `data/exams/_template/exam.json` for the shape.
+This repo does not include a third-party question dump. The practice items here were written for this site.

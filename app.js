@@ -9,7 +9,7 @@ const state = {
   flags: {},
   timerId: null,
   remaining: 0,
-  phase: "catalog",
+  phase: "dashboard",
   reviewMode: false,
   showCase: false,
 };
@@ -233,10 +233,10 @@ function renderHome() {
   app().innerHTML = `
     <div class="app">
       <section class="hero">
-        <button class="btn ghost" id="backCat">All exams</button>
+        <button class="btn ghost" id="backCat">Back to lessons</button>
         <div class="kicker">${esc(meta.shortTitle || meta.id || "Exam")}</div>
         <h1>${esc(meta.title || state.exam.title)}</h1>
-        <p class="lede">Choose answers, flag items, and see right or wrong as soon as you click. Submit when you want a score.</p>
+        <p class="lede">These are practice questions. You need to answer them. The mark appears as soon as you click. Wrong answers are the useful ones: read the note, then come back to that item tomorrow.</p>
         <div class="stats">
           <div class="stat"><b>${n}</b><span>Questions</span></div>
           <div class="stat"><b>${meta.passPercent || 70}%</b><span>Pass mark</span></div>
@@ -257,10 +257,7 @@ function renderHome() {
         </div>
       </section>
     </div>`;
-  $("#backCat").onclick = () => {
-    state.phase = "catalog";
-    render();
-  };
+  $("#backCat").onclick = () => go("dashboard");
   $("#full").onclick = () => startExam("full");
   $("#practice").onclick = () => startExam("practice");
   app().querySelectorAll("[data-range]").forEach((btn) => {
@@ -555,8 +552,134 @@ function renderResults() {
   });
 }
 
+function paintNav() {
+  const nav = document.getElementById("nav");
+  if (!nav) return;
+  const items = [
+    ["dashboard", "Dashboard"],
+    ["guides", "Guides"],
+    ["roadmap", "Roadmap"],
+    ["practice", "Practice"]
+  ];
+  const active = state.phase === "home" || state.phase === "exam" || state.phase === "results" || state.phase === "catalog" ? "practice" : state.phase === "guide" ? "guides" : state.phase;
+  nav.innerHTML = `<span class="brand">AI-103 Foundry</span>` + items.map(([id, label]) =>
+    `<button type="button" data-nav="${id}" class="${active === id ? "on" : ""}">${label}</button>`
+  ).join("");
+  nav.querySelectorAll("[data-nav]").forEach((btn) => {
+    btn.onclick = () => go(btn.dataset.nav);
+  });
+}
+
+function go(dest) {
+  if (state.timerId && dest !== "practice") {
+    clearInterval(state.timerId);
+    state.timerId = null;
+  }
+  if (dest === "practice") {
+    openExam("ai-103-extra");
+    return;
+  }
+  if (dest === "guides") {
+    state.phase = "guides";
+    state.guideId = null;
+  } else {
+    state.phase = dest;
+  }
+  render();
+}
+
+function renderDashboard() {
+  const cards = window.LEARN.dashboard.map((c) => `
+    <button class="docard" data-guide="${esc(c.id)}">
+      <div class="week">${esc(c.week)} · ${esc(c.mins)}</div>
+      <h2>${esc(c.title)}</h2>
+      <p>${esc(c.blurb)}</p>
+    </button>`).join("");
+  const title = state.phase === "guides" ? "Guides" : "Learn the portal, then sit the practice";
+  const lede = state.phase === "guides"
+    ? "Open a card and do that job in Foundry before you move on. The practice tab is waiting, but it will not teach you the clicks."
+    : "These cards are the lessons. Do them in order. The practice tab is a set of questions you are meant to finish, not a score to admire. When you miss one, go back to the lesson that covers that job.";
+  app().innerHTML = `
+    <div class="app">
+      <div class="kicker">Study desk</div>
+      <h1>${title}</h1>
+      <p class="lede">${lede}</p>
+      <div class="banner">The diagrams in each lesson are maps of the clicks, not screenshots. The Foundry menus move. Look for the job described in the step, then confirm the label in your tenant. Official reference: <a href="https://learn.microsoft.com/azure/ai-foundry/">Microsoft Foundry documentation</a>.</div>
+      <div class="cardgrid">${cards}</div>
+      <div class="row">
+        <button class="btn" id="toRoad">Open the four-week plan</button>
+        <button class="btn ghost" id="toPrac">Go to practice questions</button>
+      </div>
+    </div>`;
+  app().querySelectorAll("[data-guide]").forEach((btn) => {
+    btn.onclick = () => openGuide(btn.dataset.guide);
+  });
+  $("#toRoad").onclick = () => go("roadmap");
+  $("#toPrac").onclick = () => go("practice");
+}
+
+function openGuide(id) {
+  state.phase = "guide";
+  state.guideId = id;
+  render();
+}
+
+function renderGuides() {
+  renderDashboard();
+  const h = app().querySelector("h1");
+  if (h) h.textContent = "Guides";
+}
+
+function renderGuide() {
+  const g = window.LEARN.guides[state.guideId];
+  if (!g) {
+    state.phase = "guides";
+    renderDashboard();
+    return;
+  }
+  const map = window.LEARN.maps[g.map] || "";
+  app().innerHTML = `
+    <div class="app guide">
+      <button class="btn ghost" id="backGuides">All lessons</button>
+      <div class="kicker">How to do this in Microsoft Foundry</div>
+      <h1>${esc(g.title)}</h1>
+      <p class="lede">${esc(g.why)}</p>
+      ${map}
+      <h2>What you should be able to point at</h2>
+      <ul class="steps">${g.lookFor.map((s) => `<li>${esc(s)}</li>`).join("")}</ul>
+      <h2>Do it in this order</h2>
+      <ol class="steps">${g.steps.map((s) => `<li>${esc(s)}</li>`).join("")}</ol>
+      <div class="callout"><b>The mistake I see most.</b> ${esc(g.mistake)}</div>
+      <h2>Before you leave the portal</h2>
+      <ul class="steps">${g.check.map((s) => `<li>${esc(s)}</li>`).join("")}</ul>
+      <p class="lede">Microsoft's own write-up, for when a label has moved: <a href="${esc(g.official)}">${esc(g.official)}</a></p>
+    </div>`;
+  $("#backGuides").onclick = () => go("guides");
+}
+
+function renderRoadmap() {
+  const blocks = window.LEARN.roadmap.map((w) => `
+    <section class="weekblock">
+      <div class="week">${esc(w.week)}</div>
+      <h2>${esc(w.title)}</h2>
+      <ol class="steps">${w.do.map((s) => `<li>${esc(s)}</li>`).join("")}</ol>
+      <p class="lede"><b>You are done with this week when:</b> ${esc(w.done)}</p>
+    </section>`).join("");
+  app().innerHTML = `
+    <div class="app">
+      <div class="kicker">Four weeks</div>
+      <h1>How to learn this, without collecting tabs</h1>
+      <p class="lede">One project. One deployment. One agent. Do not start a second hub because the first one feels messy. Messy and finished beats a clean diagram you never clicked.</p>
+      ${blocks}
+    </div>`;
+}
+
 function render() {
-  if (state.phase === "catalog") renderCatalog();
+  paintNav();
+  if (state.phase === "dashboard" || state.phase === "guides") renderDashboard();
+  else if (state.phase === "guide") renderGuide();
+  else if (state.phase === "roadmap") renderRoadmap();
+  else if (state.phase === "catalog") renderCatalog();
   else if (state.phase === "home") renderHome();
   else if (state.phase === "exam") renderExam();
   else renderResults();
@@ -581,13 +704,14 @@ async function openExam(id) {
 }
 
 async function boot() {
-  app().innerHTML = `<div class="app"><p class="lede">Loading exams…</p></div>`;
+  app().innerHTML = `<div class="app"><p class="lede">Loading…</p></div>`;
   const res = await fetch("data/catalog.json");
   if (!res.ok) {
     app().innerHTML = `<div class="app"><p>Could not load data/catalog.json. Serve this folder with a local web server.</p></div>`;
     return;
   }
   state.catalog = await res.json();
+  state.phase = "dashboard";
   render();
 }
 

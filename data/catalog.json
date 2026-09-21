@@ -1,20 +1,12 @@
 {
-  "product": "Cert Exam Prep",
+  "product": "AI-103 Foundry study",
   "exams": [
     {
-      "id": "ai-103",
-      "title": "AI-103",
-      "subtitle": "Azure AI Apps and Agents Developer Associate",
-      "path": "data/exams/ai-103",
-      "setSize": 30,
-      "highlightLastAsSenior": true
-    },
-    {
       "id": "ai-103-extra",
-      "title": "AI-103 Extra drills",
-      "subtitle": "20 extra Foundry, RAG, Speech, and safety questions",
+      "title": "Practice set",
+      "subtitle": "36 questions to complete. Check each answer as you go, then redo the misses.",
       "path": "data/exams/ai-103-extra",
-      "setSize": 10,
+      "setSize": 12,
       "highlightLastAsSenior": false
     }
   ]

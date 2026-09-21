@@ -283,6 +283,230 @@
       "answer": ["B"],
       "explanation": "Memory is what persists user context across sessions. Knowledge is source content. Guardrails enforce policy. Tools call APIs.",
       "points": 1
+    },
+    {
+      "id": 21,
+      "type": "single",
+      "stem": "You are about to deploy a chat model for a support agent. The exam-style requirement is: traffic varies, you do not want to buy reserved throughput, and prompts must stay in the EU region of the project. Which deployment type fits?",
+      "options": [
+        {"id": "A", "text": "Global Standard"},
+        {"id": "B", "text": "Standard in the EU region"},
+        {"id": "C", "text": "Global Provisioned"},
+        {"id": "D", "text": "A batch transcription job"}
+      ],
+      "answer": ["B"],
+      "explanation": "Standard scales without reserved throughput and stays in the deployment region. Global options can process outside that region.",
+      "points": 1
+    },
+    {
+      "id": 22,
+      "type": "single",
+      "stem": "Product answers must stay on the same model behavior for months. What do you do to the deployment version policy?",
+      "options": [
+        {"id": "A", "text": "Upgrade automatically whenever a new default version appears"},
+        {"id": "B", "text": "Opt out of automatic model version upgrades"},
+        {"id": "C", "text": "Delete the deployment every night and recreate it"},
+        {"id": "D", "text": "Raise temperature so answers vary less"}
+      ],
+      "answer": ["B"],
+      "explanation": "Automatic upgrades change behavior. Opting out keeps the version you tested until you choose to move.",
+      "points": 1
+    },
+    {
+      "id": 23,
+      "type": "single",
+      "stem": "Vendor invoices have tables, logos, and different layouts. You must check them against contract terms using both layout and text. Which service is the better fit?",
+      "options": [
+        {"id": "A", "text": "Chat completions alone"},
+        {"id": "B", "text": "Image Analysis tags only"},
+        {"id": "C", "text": "Azure Content Understanding"},
+        {"id": "D", "text": "Speech to text"}
+      ],
+      "answer": ["C"],
+      "explanation": "Content Understanding is built for documents that mix layout and text. A plain chat call does not read the file structure for you.",
+      "points": 1
+    },
+    {
+      "id": 24,
+      "type": "multi",
+      "stem": "Product PDFs live in Blob Storage. The agent must answer from those sheets using semantic and vector search. Which two pieces belong in the indexing pipeline?",
+      "options": [
+        {"id": "A", "text": "Text split"},
+        {"id": "B", "text": "Embedding"},
+        {"id": "C", "text": "Text to speech"},
+        {"id": "D", "text": "Custom neural voice"}
+      ],
+      "answer": ["A", "B"],
+      "explanation": "Split long PDFs into chunks, then embed the chunks so search can retrieve by meaning. Speech features do not index documents.",
+      "points": 1
+    },
+    {
+      "id": 25,
+      "type": "single",
+      "stem": "Developers must call Foundry models without API keys. What do you use in code?",
+      "options": [
+        {"id": "A", "text": "AzureKeyCredential with a key from a spreadsheet"},
+        {"id": "B", "text": "DefaultAzureCredential (Microsoft Entra ID)"},
+        {"id": "C", "text": "No credential object"},
+        {"id": "D", "text": "A Bearer token pasted into the system prompt"}
+      ],
+      "answer": ["B"],
+      "explanation": "DefaultAzureCredential uses the signed-in identity or managed identity. A key credential violates a no-keys rule.",
+      "points": 1
+    },
+    {
+      "id": 26,
+      "type": "single",
+      "stem": "A refund workflow must stop until a person approves, then continue only when the approval value is approved. Which workflow step type pauses for that input?",
+      "options": [
+        {"id": "A", "text": "basic_chat"},
+        {"id": "B", "text": "ask_question"},
+        {"id": "C", "text": "data_transformation"},
+        {"id": "D", "text": "A higher temperature"}
+      ],
+      "answer": ["B"],
+      "explanation": "ask_question is the human-in-the-loop pause. The next step should run only when the condition matches the approved value.",
+      "points": 1
+    },
+    {
+      "id": 27,
+      "type": "single",
+      "stem": "Costs jumped after a prompt change, but the number of user requests did not. What do you inspect first?",
+      "options": [
+        {"id": "A", "text": "Groundedness scores"},
+        {"id": "B", "text": "Token usage (input and output tokens)"},
+        {"id": "C", "text": "Virtual network rules"},
+        {"id": "D", "text": "Custom Vision precision"}
+      ],
+      "answer": ["B"],
+      "explanation": "A longer prompt or longer completion raises token cost even when request count stays flat.",
+      "points": 1
+    },
+    {
+      "id": 28,
+      "type": "single",
+      "stem": "You suspect the retrieved product chunks are causing wrong answers. Which signal tells you whether the reply is supported by those chunks?",
+      "options": [
+        {"id": "A", "text": "Indexer failure history only"},
+        {"id": "B", "text": "Latency breakdown"},
+        {"id": "C", "text": "Groundedness evaluation"},
+        {"id": "D", "text": "Deployment SKU"}
+      ],
+      "answer": ["C"],
+      "explanation": "Groundedness asks: is this sentence backed by the retrieved text? Latency and indexer health do not answer that.",
+      "points": 1
+    },
+    {
+      "id": 29,
+      "type": "yesno",
+      "stem": "You are reviewing a RAG evaluation step before production. Decide Yes or No.",
+      "items": [
+        {"id": "1", "text": "Groundedness checks that claims are supported by the retrieved context.", "answer": "Yes"},
+        {"id": "2", "text": "Fluency alone proves the answer used the right document.", "answer": "No"},
+        {"id": "3", "text": "The pipeline should be allowed to merge when the evaluation fails.", "answer": "No"}
+      ],
+      "explanation": "A fluent answer can still be invented. Fail the workflow when groundedness or retrieval quality misses the bar.",
+      "points": 3
+    },
+    {
+      "id": 30,
+      "type": "single",
+      "stem": "One million scanned magazine pages must become text, including handwriting and odd layouts, as fast as practical. Which API is the usual choice for bulk OCR of images?",
+      "options": [
+        {"id": "A", "text": "The Read API in Azure Vision"},
+        {"id": "B", "text": "Speech translation"},
+        {"id": "C", "text": "DALL-E"},
+        {"id": "D", "text": "A sentiment skill with no OCR"}
+      ],
+      "answer": ["A"],
+      "explanation": "Read is the OCR path for images and scanned pages. Sentiment does not extract text. Image generation does not read pages.",
+      "points": 1
+    },
+    {
+      "id": 31,
+      "type": "sequence",
+      "stem": "Confidential documents must be analyzed with Azure Language, but the files must stay on-premises. Order the work.",
+      "slots": [
+        {"id": "1", "label": "Step 1", "answer": "Provision an on-premises Kubernetes cluster that can reach the internet for billing"},
+        {"id": "2", "label": "Step 2", "answer": "Pull the Language container from Microsoft Container Registry"},
+        {"id": "3", "label": "Step 3", "answer": "Run the container with the resource endpoint and key"}
+      ],
+      "choices": [
+        "Provision an on-premises Kubernetes cluster that can reach the internet for billing",
+        "Pull the Language container from Microsoft Container Registry",
+        "Run the container with the resource endpoint and key",
+        "Pull the image from a random public registry and block all outbound traffic"
+      ],
+      "explanation": "The container processes the file locally. It still needs outbound access for metering. Microsoft publishes the image on MCR.",
+      "points": 3
+    },
+    {
+      "id": 32,
+      "type": "single",
+      "stem": "An agent should answer only about Contoso products, not general trivia. Where do you put that rule so it outranks a user message?",
+      "options": [
+        {"id": "A", "text": "In the system instructions"},
+        {"id": "B", "text": "Only in one few-shot example"},
+        {"id": "C", "text": "By setting temperature to 1"},
+        {"id": "D", "text": "In the resource group name"}
+      ],
+      "answer": ["A"],
+      "explanation": "System instructions set the standing rule. Temperature changes randomness. A single example is weaker than the system message.",
+      "points": 1
+    },
+    {
+      "id": 33,
+      "type": "single",
+      "stem": "You need one resource the app can use for both Speech and Language, each reached with its own endpoint details from that resource. What do you provision?",
+      "options": [
+        {"id": "A", "text": "A Microsoft Foundry (multi-service) resource"},
+        {"id": "B", "text": "Only a Custom Vision project"},
+        {"id": "C", "text": "Only a storage account"},
+        {"id": "D", "text": "A Log Analytics workspace with no AI resource"}
+      ],
+      "answer": ["A"],
+      "explanation": "A multi-service Foundry resource can front several Azure AI APIs. Custom Vision does not give you Speech and Language together.",
+      "points": 1
+    },
+    {
+      "id": 34,
+      "type": "matching",
+      "stem": "Match the job to the service.",
+      "slots": [
+        {"id": "1", "label": "Pull text out of press-release PDFs", "answer": "Document Intelligence"},
+        {"id": "2", "label": "Score whether that text is positive or negative", "answer": "Azure Language"}
+      ],
+      "choices": ["Document Intelligence", "Azure Language", "Azure AI Search", "Speech synthesis"],
+      "explanation": "Document Intelligence reads the file. Language runs sentiment on the text. Search retrieves; it does not score sentiment by itself.",
+      "points": 2
+    },
+    {
+      "id": 35,
+      "type": "single",
+      "stem": "A search query key may have leaked. You need read-only access restored with as little downtime as possible. What is the safe order?",
+      "options": [
+        {"id": "A", "text": "Delete the only key first, then hope the app keeps working"},
+        {"id": "B", "text": "Add a new query key, point the app at it, then delete the compromised key"},
+        {"id": "C", "text": "Turn the index into a public anonymous endpoint"},
+        {"id": "D", "text": "Put the key in the system prompt so you can rotate it later"}
+      ],
+      "answer": ["B"],
+      "explanation": "Create the replacement, cut the app over, then remove the old key. Deleting first is the outage.",
+      "points": 1
+    },
+    {
+      "id": 36,
+      "type": "single",
+      "stem": "Video generation from a deployed model is asynchronous. Which pair of calls is the right shape?",
+      "options": [
+        {"id": "A", "text": "create to start the job, retrieve to poll status"},
+        {"id": "B", "text": "list to start the job, create to poll it"},
+        {"id": "C", "text": "retrieve to start the job, download_content to poll it"},
+        {"id": "D", "text": "download_content before any job exists"}
+      ],
+      "answer": ["A"],
+      "explanation": "create starts work. retrieve checks that job. download_content is for the finished file. list only enumerates jobs.",
+      "points": 1
     }
   ]
 }
