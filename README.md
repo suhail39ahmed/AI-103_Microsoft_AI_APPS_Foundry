@@ -2,7 +2,13 @@
 
 A small study site for the Azure AI Apps and Agents Developer Associate exam: lessons you do in Microsoft Foundry, a four-week plan, and a practice set you are meant to finish.
 
-## Run locally
+## Use the hosted site
+
+https://suhail39ahmed.github.io/AI-103_Microsoft_AI_APPS_Foundry/
+
+GitHub Pages serves the `main` branch. The first publish can take a minute.
+
+## Or run it locally
 
 ```powershell
 cd C:\Users\SuhailInayathulla\Documents\cert-exam-prep
@@ -10,6 +16,8 @@ python -m http.server 8787
 ```
 
 Open http://localhost:8787
+
+Same site either way.
 
 - **Dashboard** — lesson cards
 - **Guides** — what to click, in order, with a map of the screen (not a screenshot; the portal layout changes)

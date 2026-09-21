@@ -604,7 +604,7 @@ function renderDashboard() {
       <div class="kicker">Study desk</div>
       <h1>${title}</h1>
       <p class="lede">${lede}</p>
-      <div class="banner">The diagrams in each lesson are maps of the clicks, not screenshots. The Foundry menus move. Look for the job described in the step, then confirm the label in your tenant. Official reference: <a href="https://learn.microsoft.com/azure/ai-foundry/">Microsoft Foundry documentation</a>.</div>
+      <div class="banner">Use the site here: <a href="https://suhail39ahmed.github.io/AI-103_Microsoft_AI_APPS_Foundry/">suhail39ahmed.github.io/AI-103_Microsoft_AI_APPS_Foundry</a>. If that page is down, run it on your own machine with <code>python -m http.server 8787</code> in this folder and open <code>http://localhost:8787</code>. The diagrams in each lesson are maps of the clicks, not screenshots. Foundry menus move. Official reference: <a href="https://learn.microsoft.com/azure/ai-foundry/">Microsoft Foundry documentation</a>.</div>
       <div class="cardgrid">${cards}</div>
       <div class="row">
         <button class="btn" id="toRoad">Open the four-week plan</button>
