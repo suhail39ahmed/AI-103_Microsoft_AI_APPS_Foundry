@@ -1,0 +1,18 @@
+{
+  "title": "Sample exam",
+  "passPercent": 70,
+  "questions": [
+    {
+      "id": 1,
+      "type": "single",
+      "stem": "Replace this with a real question.",
+      "options": [
+        {"id": "A", "text": "First option"},
+        {"id": "B", "text": "Second option"}
+      ],
+      "answer": ["B"],
+      "explanation": "Explain why B is correct.",
+      "points": 1
+    }
+  ]
+}

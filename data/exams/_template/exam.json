@@ -1,0 +1,7 @@
+{
+  "id": "my-exam",
+  "title": "Exam title",
+  "shortTitle": "EXAM",
+  "passPercent": 70,
+  "setSize": 30
+}

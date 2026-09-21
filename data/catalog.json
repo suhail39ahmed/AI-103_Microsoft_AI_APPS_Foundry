@@ -1,0 +1,21 @@
+{
+  "product": "Cert Exam Prep",
+  "exams": [
+    {
+      "id": "ai-103",
+      "title": "AI-103",
+      "subtitle": "Azure AI Apps and Agents Developer Associate",
+      "path": "data/exams/ai-103",
+      "setSize": 30,
+      "highlightLastAsSenior": true
+    },
+    {
+      "id": "ai-103-extra",
+      "title": "AI-103 Extra drills",
+      "subtitle": "20 extra Foundry, RAG, Speech, and safety questions",
+      "path": "data/exams/ai-103-extra",
+      "setSize": 10,
+      "highlightLastAsSenior": false
+    }
+  ]
+}

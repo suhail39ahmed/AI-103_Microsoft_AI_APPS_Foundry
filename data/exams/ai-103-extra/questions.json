@@ -1,0 +1,288 @@
+{
+  "title": "AI-103 Extra drills",
+  "passPercent": 70,
+  "questions": [
+    {
+      "id": 1,
+      "type": "single",
+      "stem": "A call-center app must show supervisors a transcript a few seconds after speech is heard on a live phone stream. Which Speech capability should you use?",
+      "options": [
+        {"id": "A", "text": "Batch transcription of recorded WAV files"},
+        {"id": "B", "text": "Real-time speech to text on the audio stream"},
+        {"id": "C", "text": "Text to speech with a custom neural voice"},
+        {"id": "D", "text": "Pronunciation assessment"}
+      ],
+      "answer": ["B"],
+      "explanation": "Live streams need low-latency real-time speech to text. Batch jobs wait for a finished recording. TTS speaks text; it does not transcribe.",
+      "points": 1
+    },
+    {
+      "id": 2,
+      "type": "single",
+      "stem": "An agent must extract tables and QR codes from scanned PDF invoices and keep the original layout for downstream mapping. You cannot deploy a language model. Which Content Understanding analyzer should you use?",
+      "options": [
+        {"id": "A", "text": "prebuilt-read"},
+        {"id": "B", "text": "prebuilt-layout"},
+        {"id": "C", "text": "prebuilt-documentSearch"},
+        {"id": "D", "text": "A custom chat completion prompt"}
+      ],
+      "answer": ["B"],
+      "explanation": "prebuilt-layout returns structure (paragraphs, tables, selection marks, barcodes/QR) without a custom LLM. prebuilt-read is OCR-first. Search analyzers do not preserve layout for mapping.",
+      "points": 1
+    },
+    {
+      "id": 3,
+      "type": "single",
+      "stem": "Users upload screenshots that may contain hidden prompt-injection text. You must stop the attack from reaching the multimodal model and treat third-party content as lower trust. What should you configure?",
+      "options": [
+        {"id": "A", "text": "Prompt shields action = annotate, and disable Spotlighting"},
+        {"id": "B", "text": "Prompt shields action = block, and enable Spotlighting"},
+        {"id": "C", "text": "A custom blocklist of the word screenshot"},
+        {"id": "D", "text": "OCR only, with no prompt shield"}
+      ],
+      "answer": ["B"],
+      "explanation": "Block stops a detected document attack. Spotlighting marks untrusted extracted content so the model is less likely to follow it. Annotate only flags. Blocklists and OCR do not establish trust boundaries.",
+      "points": 1
+    },
+    {
+      "id": 4,
+      "type": "matching",
+      "stem": "Match each agent requirement to the built-in tool.",
+      "slots": [
+        {"id": "1", "label": "Do math during the chat", "answer": "Code interpreter"},
+        {"id": "2", "label": "Answer from live public websites", "answer": "Grounding with Bing Search"},
+        {"id": "3", "label": "Answer from files the user just uploaded", "answer": "File search"}
+      ],
+      "choices": ["Code interpreter", "Grounding with Bing Search", "File search", "Computer use", "Microsoft Fabric"],
+      "explanation": "Code interpreter runs Python. Bing grounding fetches current public web facts. File search indexes uploads for RAG. Computer use drives GUIs. Fabric is an analytics platform, not these three tools.",
+      "points": 3
+    },
+    {
+      "id": 5,
+      "type": "single",
+      "stem": "Several apps must share one Azure AI Search configuration. Key-based auth is banned and you want the least admin work. What should you do?",
+      "options": [
+        {"id": "A", "text": "Create a custom HTTP connection in each app"},
+        {"id": "B", "text": "Create an Azure AI Search connection in the Foundry project and reuse it"},
+        {"id": "C", "text": "Call Search directly from every app with its own settings"},
+        {"id": "D", "text": "Store the query key in each app settings file"}
+      ],
+      "answer": ["B"],
+      "explanation": "A project connection centralizes endpoint and Entra-based auth so every client reuses one configuration.",
+      "points": 1
+    },
+    {
+      "id": 6,
+      "type": "single",
+      "stem": "You must inspect one agent run and see the ordered LLM calls, tool calls, and timings. Which observability feature is that?",
+      "options": [
+        {"id": "A", "text": "Token usage"},
+        {"id": "B", "text": "Safety metrics"},
+        {"id": "C", "text": "Tracing"},
+        {"id": "D", "text": "Subscription cost analysis"}
+      ],
+      "answer": ["C"],
+      "explanation": "Tracing is per-run, step-ordered telemetry. Token usage is volume only. Safety metrics score harm. Cost analysis is billing.",
+      "points": 1
+    },
+    {
+      "id": 7,
+      "type": "single",
+      "stem": "An OpenAPI tool must send an API key from a Foundry connection in an HTTP header automatically. What do you add to the OpenAPI specification?",
+      "options": [
+        {"id": "A", "text": "A header parameter on every operation only"},
+        {"id": "B", "text": "An API key security scheme"},
+        {"id": "C", "text": "A Bearer token security scheme"},
+        {"id": "D", "text": "An Azure Key Vault connection name in the summary"}
+      ],
+      "answer": ["B"],
+      "explanation": "An API key security scheme tells the OpenAPI tool how to inject the connection secret (header, query, or cookie).",
+      "points": 1
+    },
+    {
+      "id": 8,
+      "type": "single",
+      "stem": "A ticket-triage agent sometimes answers without calling any tool. You must force a tool call. Which tool_choice value do you set?",
+      "options": [
+        {"id": "A", "text": "auto"},
+        {"id": "B", "text": "none"},
+        {"id": "C", "text": "required"},
+        {"id": "D", "text": "response_format"}
+      ],
+      "answer": ["C"],
+      "explanation": "required makes the model invoke at least one tool before it replies. auto may skip tools.",
+      "points": 1
+    },
+    {
+      "id": 9,
+      "type": "multi",
+      "stem": "A GitHub Actions workflow must compare a new agent against the latest approved evaluation baseline and fail the job if scores regress past tolerance. Which two settings do you use?",
+      "options": [
+        {"id": "A", "text": "Compare against the latest approved baseline"},
+        {"id": "B", "text": "Compare against the previous workflow run only"},
+        {"id": "C", "text": "Fail the workflow if regression exceeds tolerance"},
+        {"id": "D", "text": "Ignore evaluation and deploy on any green build"}
+      ],
+      "answer": ["A", "C"],
+      "explanation": "The approved baseline is the quality gate, not an arbitrary prior run. Failing the workflow stops a regressing deploy.",
+      "points": 1
+    },
+    {
+      "id": 10,
+      "type": "single",
+      "stem": "A RAG agent must stay faithful to retrieved chunks before a pull request can merge. Which evaluation should the pipeline run?",
+      "options": [
+        {"id": "A", "text": "Fluency evaluation only"},
+        {"id": "B", "text": "Groundedness evaluation, and require the workflow to succeed"},
+        {"id": "C", "text": "BLEU score against Wikipedia"},
+        {"id": "D", "text": "Token-count evaluation"}
+      ],
+      "answer": ["B"],
+      "explanation": "Groundedness checks claims against retrieved context. Requiring a successful workflow blocks the merge when quality fails.",
+      "points": 1
+    },
+    {
+      "id": 11,
+      "type": "single",
+      "stem": "You need a centralized SIEM that correlates Foundry, Defender, and Entra alerts. What do you pair with a Log Analytics workspace?",
+      "options": [
+        {"id": "A", "text": "Azure Monitor Agent only"},
+        {"id": "B", "text": "Microsoft Sentinel"},
+        {"id": "C", "text": "Azure Advisor"},
+        {"id": "D", "text": "Cost Management exports"}
+      ],
+      "answer": ["B"],
+      "explanation": "Sentinel is the SIEM/SOAR that sits on a Log Analytics workspace and correlates those security signals.",
+      "points": 1
+    },
+    {
+      "id": 12,
+      "type": "single",
+      "stem": "A legal research agent must remember attorney preferences across sessions and search PDFs uploaded in the current chat. What do you enable?",
+      "options": [
+        {"id": "A", "text": "Prompt cache and Computer use"},
+        {"id": "B", "text": "Persistent agent memory and File search"},
+        {"id": "C", "text": "Conversation history only"},
+        {"id": "D", "text": "Azure Translator"}
+      ],
+      "answer": ["B"],
+      "explanation": "Persistent memory survives sessions. File search indexes uploads. History and prompt cache do not store long-term preferences.",
+      "points": 1
+    },
+    {
+      "id": 13,
+      "type": "single",
+      "stem": "Content Safety must read engineering drawings from Blob Storage without storage keys or SAS, using least privilege. What do you use?",
+      "options": [
+        {"id": "A", "text": "Account keys and Owner"},
+        {"id": "B", "text": "System-assigned managed identity and Storage Blob Data Reader"},
+        {"id": "C", "text": "A user-delegation SAS cached in the prompt"},
+        {"id": "D", "text": "Storage Blob Data Contributor on a shared key"}
+      ],
+      "answer": ["B"],
+      "explanation": "A system-assigned identity plus Blob Data Reader is Entra auth and read-only. Keys, SAS, and Owner violate the constraints.",
+      "points": 1
+    },
+    {
+      "id": 14,
+      "type": "single",
+      "stem": "You must replace only the sky in a photo and leave the foreground untouched, using built-in image editing. What do you configure?",
+      "options": [
+        {"id": "A", "text": "image_variation of the whole photo"},
+        {"id": "B", "text": "mask inpainting with a mask over the sky"},
+        {"id": "C", "text": "text_to_image with no source image"},
+        {"id": "D", "text": "image_to_image with maximum strength"}
+      ],
+      "answer": ["B"],
+      "explanation": "Mask inpainting edits only the masked region. The other modes change the whole image or generate a new one.",
+      "points": 1
+    },
+    {
+      "id": 15,
+      "type": "yesno",
+      "stem": "A LangChain service and Foundry Agent Service share one Application Insights resource. Company policy says telemetry must be distinguishable and secrets must not appear in spans.",
+      "items": [
+        {"id": "1", "text": "LangChain traces appear automatically with no OpenTelemetry tracer.", "answer": "No"},
+        {"id": "2", "text": "Different OTEL_SERVICE_NAME values help separate the two services.", "answer": "Yes"},
+        {"id": "3", "text": "enable_content_recording=False still captures full prompts and tool payloads.", "answer": "No"}
+      ],
+      "explanation": "LangChain needs an Azure OpenTelemetry tracer. Service name splits apps in the same workspace. Disabling content recording is how you avoid storing prompt and tool secrets.",
+      "points": 3
+    },
+    {
+      "id": 16,
+      "type": "single",
+      "stem": "You connect a Python app to a Foundry model with the Azure OpenAI SDK. Which three values do you typically need?",
+      "options": [
+        {"id": "A", "text": "Deployment name, endpoint, and key (or Entra credential)"},
+        {"id": "B", "text": "Only the model family name"},
+        {"id": "C", "text": "Subscription ID and a Bing key"},
+        {"id": "D", "text": "The resource group and SKU only"}
+      ],
+      "answer": ["A"],
+      "explanation": "The SDK targets a deployment at an endpoint and authenticates with a key or Entra credential. Model family name alone is not enough.",
+      "points": 1
+    },
+    {
+      "id": 17,
+      "type": "single",
+      "stem": "You need numeric vectors so two documents can be compared for semantic similarity. What do you generate?",
+      "options": [
+        {"id": "A", "text": "GPT-3.5 chat completions"},
+        {"id": "B", "text": "Embeddings"},
+        {"id": "C", "text": "DALL-E images"},
+        {"id": "D", "text": "Speech synthesis marks"}
+      ],
+      "answer": ["B"],
+      "explanation": "Embeddings are numeric vectors designed for similarity. Chat, image, and speech APIs do not return document vectors.",
+      "points": 1
+    },
+    {
+      "id": 18,
+      "type": "multi",
+      "stem": "After you train an Azure Custom Vision classifier, which two metrics are available to review?",
+      "options": [
+        {"id": "A", "text": "Precision"},
+        {"id": "B", "text": "Recall"},
+        {"id": "C", "text": "Bitcoin hash rate"},
+        {"id": "D", "text": "Page load time"}
+      ],
+      "answer": ["A", "B"],
+      "explanation": "Custom Vision reports precision and recall (and related classification metrics), not infrastructure or unrelated KPIs.",
+      "points": 1
+    },
+    {
+      "id": 19,
+      "type": "sequence",
+      "stem": "You will train Azure Custom Vision to flag faulty factory parts. Put the first three actions in order.",
+      "slots": [
+        {"id": "1", "label": "Step 1", "answer": "Create a Custom Vision project"},
+        {"id": "2", "label": "Step 2", "answer": "Upload and tag images"},
+        {"id": "3", "label": "Step 3", "answer": "Train the classifier"}
+      ],
+      "choices": [
+        "Create a Custom Vision project",
+        "Upload and tag images",
+        "Train the classifier",
+        "Publish a video indexer account",
+        "Train an object-detection model only"
+      ],
+      "explanation": "Create the project, label images, then train. Object detection is a different project type if you only need classify-faulty vs good.",
+      "points": 3
+    },
+    {
+      "id": 20,
+      "type": "single",
+      "stem": "An agent must give a personalized experience across future sessions, recalling earlier preferences. What do you add?",
+      "options": [
+        {"id": "A", "text": "Knowledge only"},
+        {"id": "B", "text": "Memory"},
+        {"id": "C", "text": "Guardrails only"},
+        {"id": "D", "text": "A new tool catalog"}
+      ],
+      "answer": ["B"],
+      "explanation": "Memory is what persists user context across sessions. Knowledge is source content. Guardrails enforce policy. Tools call APIs.",
+      "points": 1
+    }
+  ]
+}
